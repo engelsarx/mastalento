@@ -1,0 +1,59 @@
+﻿@model InWorkWebApp.Models.AggregateValueModel
+
+@{
+    ViewBag.Title = "Nuevo valor agregado";
+    Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 text-center text-md-left">
+            <h2 class="m-0">@ViewBag.Title</h2>
+        </div>
+        <div class="col-12 col-md-6 text-center text-md-right">
+            <i class="fas fa-arrow-left"></i> @Html.ActionLink(linkText: "Volver al listado", actionName: "Index")
+        </div>
+    </div>
+
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <p>Completa la información requerida a continuación:</p>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group form-group--custom">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "" }) <span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+
+                <div class="form-group form-group--custom">
+                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "" }) <span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", style = "min-width: 100%;" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+
+                <div class="form-group form-group--custom">
+                    @Html.LabelFor(model => model.IconCode, htmlAttributes: new { @class = "" }) <span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.IconCode, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.IconCode, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

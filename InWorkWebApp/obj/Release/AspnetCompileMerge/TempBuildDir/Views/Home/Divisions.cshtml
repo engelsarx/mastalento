@@ -1,0 +1,88 @@
+﻿@using InWorkWebApp.Models;
+
+@{
+    ViewBag.Title = "Grupos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var applicationData = ViewBag.ApplicationData as ApplicationDataModel;
+    var divisions = ViewBag.Divisions as List<DivisionModel>;
+}
+
+<!-- Cabecera de la página -->
+<section class="hero hero--interiors">
+    <div class="hero__image">
+        <img src="~/Content/images/hero-facilities.jpg" alt="hero1" />
+    </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-4 col-lg-4 offset-lg-1 text-center text-md-left">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.DivisionsIntro))
+                {
+                    <h1 class="text-primary">
+                        <strong>@ViewBag.Title</strong>
+                        <br>@applicationData.DivisionsIntro
+                    </h1>
+                }
+                else
+                {
+                    <h1 class="text-primary">
+                        <strong>@ViewBag.Title</strong>
+                        <br>@System.Configuration.ConfigurationManager.AppSettings["DivisionsIntro"]
+                    </h1>
+                }
+            </div>
+            <div class="col-12 col-md-8 col-lg-4 offset-lg-2 register-message">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.DivisionsDescription))
+                {
+                    <h5 class="text-center text-md-left">@applicationData.DivisionsDescription</h5>
+                }
+                else
+                {
+                    <h5 class="text-center text-md-left">@System.Configuration.ConfigurationManager.AppSettings["DivisionsDescription"]</h5>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contenido principal -->
+@if (divisions != null)
+{
+    foreach (DivisionModel item in divisions)
+    {
+        <div class="general-features general-features--insert scroll-animations">
+            <div class="container">
+
+                <div class="row mb-5">
+                    <h2 class="col-8 col-lg-12 animated">@item.Name</h2>
+                    <span class="title-giant">@item.Name</span>
+                    <hr>
+                </div>
+
+                <div class="row align-items-center mt-lg-3 general-features__content">
+
+                    @if (item.Image != null && item.Image.Length > 0)
+                    {
+                        <div class="col-lg-6 d-none d-lg-block animated">
+                            <img class="diamond-mask" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.Image))" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-lg-6 d-none d-lg-block animated">
+                            <img class="diamond-mask" src="~/Content/images/division-dummy.jpg" />
+                        </div>
+                    }
+
+                    <div class="col-12 col-lg-6 animated">
+                        <p>@item.Summary</p>
+                        @Html.ActionLink(linkText: "Saber más", actionName: "Details", controllerName: "Divisions", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-link" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    @Html.Partial("_NoContent", new NoContentModel())
+}

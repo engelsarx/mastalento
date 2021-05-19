@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#393E46">
+    <title>@ViewBag.Title - @System.Configuration.ConfigurationManager.AppSettings["Brand"]</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <script type="text/javascript" src="https://kit.fontawesome.com/2426ff205a.js" crossorigin="anonymous"></script>
+    @Styles.Render("~/Content/Site.css")
+    @Styles.Render("~/Content/css/data-tables")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @Html.Partial("_Header")
+
+    <main class="" id="content" role="main">
+        @RenderBody()
+    </main>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/data-tables")
+    @Scripts.Render("~/bundles/datetimepickers")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

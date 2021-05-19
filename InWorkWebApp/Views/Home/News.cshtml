@@ -1,0 +1,107 @@
+﻿@using InWorkWebApp.Models;
+
+@{
+    ViewBag.Title = "Publicaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var applicationData = ViewBag.ApplicationData as ApplicationDataModel;
+    var news = ViewBag.News as List<NewsModel>;
+}
+
+<!-- Cabecera de la página -->
+<section class="hero hero--interiors">
+    <div class="hero__image">
+        <img src="~/Content/images/hero-publicaciones.jpg" alt="hero1" />
+    </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-4 col-lg-4 offset-lg-1 text-center text-md-left">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.NewsIntro))
+                {
+                    <h1 class="text-primary">
+                        <strong>@ViewBag.Title</strong>
+                        <br>@applicationData.NewsIntro
+                    </h1>
+                }
+                else
+                {
+                    <h1 class="text-primary">
+                        <strong>@ViewBag.Title</strong>
+                        <br>@System.Configuration.ConfigurationManager.AppSettings["NewsIntro"]
+                    </h1>
+                }
+            </div>
+            <div class="col-12 col-md-8 col-lg-4 offset-lg-2 register-message">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.NewsDescription))
+                {
+                    <h5 class="text-center text-md-left">@applicationData.NewsDescription</h5>
+                }
+                else
+                {
+                    <h5 class="text-center text-md-left">@System.Configuration.ConfigurationManager.AppSettings["NewsDescription"]</h5>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contenido principal -->
+<section class="features container publications scroll-animations">
+    <img data-paroller-factor="0.2" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--left d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo izquierdo" />
+    <div class="row justify-content-center">
+
+        @if (news != null)
+        {
+            foreach (NewsModel item in news)
+            {
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="solid-block solid-block--publication">
+                        @if (item.Image != null && item.Image.Length > 0)
+                        {
+                            <div class="solid-block__image-container">
+                                <img src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.Image))" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="solid-block__image-container">
+                                <img src="~/Content/images/division-dummy.jpg" />
+                            </div>
+                        }
+                        <div class="solid-block__info-container">
+                            <hr class="bg-primary" />
+                            <h2>@item.Title</h2>
+
+                            @if (!string.IsNullOrWhiteSpace(item.Subtitle))
+                            {
+                                <h4>@item.Subtitle</h4>
+                            }
+
+                            <h6 class="text-secondary mb-5">@item.PublishDate</h6>
+
+                            <p>@item.Summary</p>
+
+                            @if (!string.IsNullOrWhiteSpace(item.Link))
+                            {
+                                <div class="text-right mt-5">
+                                    <a href="@item.Link" class="btn btn-link">Leer más</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-right mt-5">
+                                    @Html.ActionLink(linkText: "Leer más", actionName: "Details", controllerName: "News", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-link" })
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            @Html.Partial("_NoContent", new NoContentModel())
+        }
+    </div>
+    <img data-paroller-factor="0.1" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--right d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo derecho" />
+</section>

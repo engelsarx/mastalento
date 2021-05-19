@@ -1,0 +1,15 @@
+﻿@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ActionLink(linkText: "Mi cuenta", actionName: "Index", controllerName: "Manage", routeValues: null, htmlAttributes: new { @class = "pl-5 ml-3 pl-lg-0 ml-lg-0 pr-5", style = "text-decoration: none; color: white;" })
+        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-primary mt-4 ml-4 mt-lg-0 ml-lg-0">Cerrar sesión</a>
+    }
+}
+else
+{
+    @*<li>@Html.ActionLink(linkText: "Registrarme", actionName: "Register", controllerName: "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+    @Html.ActionLink(linkText: "Ingresar", actionName: "Login", controllerName: "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary ml-4 mt-3 ml-md-0 mt-md-0" })
+}

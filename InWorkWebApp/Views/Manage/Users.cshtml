@@ -1,0 +1,136 @@
+﻿@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin;
+
+@model IEnumerable<InWorkWebApp.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Usuarios";
+    Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 text-center text-md-left">
+            <div class="d-flex align-items-center">
+                <h2 class="m-0 mr-3">
+                    @ViewBag.Title
+                </h2>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle dropdown-menu-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ver
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.PhoneNumber)" type="checkbox" class="toggle-vis" data-column="2" />
+                            <label for="@Html.DisplayNameFor(model => model.PhoneNumber)">Teléfono celular</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.Roles)" type="checkbox" class="toggle-vis" data-column="3" />
+                            <label for="@Html.DisplayNameFor(model => model.Roles)">Rol</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.FirstName)" type="checkbox" class="toggle-vis" data-column="4" />
+                            <label for="@Html.DisplayNameFor(model => model.FirstName)">@Html.DisplayNameFor(model => model.FirstName)</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.LastName)" type="checkbox" class="toggle-vis" data-column="5" />
+                            <label for="@Html.DisplayNameFor(model => model.LastName)">@Html.DisplayNameFor(model => model.LastName)</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.SecondLastName)" type="checkbox" class="toggle-vis" data-column="6" />
+                            <label for="@Html.DisplayNameFor(model => model.SecondLastName)">@Html.DisplayNameFor(model => model.SecondLastName)</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.EmailConfirmed)" type="checkbox" class="toggle-vis" data-column="7" />
+                            <label for="@Html.DisplayNameFor(model => model.EmailConfirmed)">Estatus de la cuenta</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 text-center text-md-right">
+            <i class="fas fa-plus"></i>
+            @Html.ActionLink(linkText: "Nuevo usuario", actionName: "Register", controllerName: "Account", routeValues: null, htmlAttributes: new { })
+        </div>
+    </div>
+
+    <hr />
+
+    <br />
+
+    <table id="usersTable" class="table table-striped dataTable responsive" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                <th>Teléfono celular</th>
+                <th>Rol</th>
+                <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.SecondLastName)</th>
+                <th>Estatus de la cuenta</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var UserManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var UserRoles = UserManager.GetRoles(item.Id);
+                var defaultRole = @UserRoles.FirstOrDefault();
+
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    @if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
+                    {
+                        <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                    }
+                    else
+                    {
+                        <td>Desconocido</td>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(defaultRole))
+                    {
+                        <td>@defaultRole</td>
+                    }
+                    else
+                    {
+                        <td>Desconocido</td>
+                    }
+                    <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SecondLastName)</td>
+                    @if (item.EmailConfirmed)
+                    {
+                        <td>Activa</td>
+                    }
+                    else
+                    {
+                        <td>Inactiva</td>
+                    }
+                    <td>
+                        @if (item.EmailConfirmed)
+                        {
+                            <a href="@Url.Action(actionName: "DisableAccount", controllerName: "Manage", routeValues: new { id = item.Id })" style="text-decoration: none;">
+                                <i class="fas fa-toggle-on"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action(actionName: "EnableAccount", controllerName: "Manage", routeValues: new { id = item.Id })" style="text-decoration: none;">
+                                <i class="fas fa-toggle-off"></i>
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/app/datatables/users-init.js")
+}

@@ -1,0 +1,93 @@
+﻿@model InWorkWebApp.Models.FrequentlyAskedQuestionModel
+
+@{
+    ViewBag.Title = "Detalle de la pregunta";
+    Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 text-center text-md-left">
+            <h2 class="m-0">@ViewBag.Title</h2>
+        </div>
+        <div class="col-12 col-md-6 text-center text-md-right">
+            <i class="fas fa-arrow-left"></i> @Html.ActionLink(linkText: "Volver al listado", actionName: "Index")
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="col-12 text-center text-md-right">
+        @Html.ActionLink(linkText: "Editar", actionName: "Edit", routeValues: new { id = Model.Id })
+    </div>
+
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Question)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Question)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Answer)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.Answer)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PublishDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PublishDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ExpirationDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ExpirationDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreationDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreatedBy)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastUpdateDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastUpdateDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ModifiedBy)
+            </dd>
+        </dl>
+    </div>
+
+</div>

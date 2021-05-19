@@ -1,0 +1,41 @@
+﻿@model InWorkWebApp.Models.SolutionModel
+
+@{
+    ViewBag.Title = "Borrado de soluciones";
+    Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 text-center text-md-left">
+            <h2 class="m-0">Confirmación requerida</h2>
+        </div>
+        <div class="col-12 col-md-6 text-center text-md-right">
+            <i class="fas fa-arrow-left"></i>  @Html.ActionLink(linkText: "Volver al listado", actionName: "Index")
+        </div>
+    </div>
+
+    <hr />
+
+    <p class="text-center">¿Estás seguro que deseas eliminar la solución '@Html.DisplayFor(model => model.Name)'?</p>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-md-6 col-lg-2">
+                <input class="btn btn-primary px-2 btn-block" type="submit" value="Sí" />
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
+                <button class="btn btn-primary px-2 btn-block" type="button" onclick="window.location.href='@Url.Action(actionName: "Index", controllerName: "Solutions")'">No</button>
+            </div>
+
+        </div>
+
+    }
+
+</div>

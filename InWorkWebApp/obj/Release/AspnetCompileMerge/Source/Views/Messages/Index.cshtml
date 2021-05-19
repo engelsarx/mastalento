@@ -1,0 +1,96 @@
+﻿@model IEnumerable<InWorkWebApp.Models.MessageModel>
+
+@{
+    ViewBag.Title = "Mensajes";
+    Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 text-center text-md-left">
+            <div class="d-flex align-items-center">
+                <h2 class="m-0 mr-3">
+                    @ViewBag.Title
+                </h2>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle dropdown-menu-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ver
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.Name)" type="checkbox" class="toggle-vis" data-column="2" />
+                            <label for="@Html.DisplayNameFor(model => model.Name)">@Html.DisplayNameFor(model => model.Name)</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.Email)" type="checkbox" class="toggle-vis" data-column="3" />
+                            <label for="@Html.DisplayNameFor(model => model.Email)">@Html.DisplayNameFor(model => model.Email)</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.MobilePhone)" type="checkbox" class="toggle-vis" data-column="4" />
+                            <label for="@Html.DisplayNameFor(model => model.MobilePhone)">@Html.DisplayNameFor(model => model.MobilePhone)</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.RegisterDate)" type="checkbox" class="toggle-vis" data-column="5" />
+                            <label for="@Html.DisplayNameFor(model => model.RegisterDate)">@Html.DisplayNameFor(model => model.RegisterDate)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 text-center text-md-right">
+            <i class="fas fa-arrow-left"></i>
+            @Html.ActionLink(linkText: "Volver al dashboard", actionName: "Dashboard", controllerName: "Manage")
+        </div>
+    </div>
+
+    <hr />
+
+    <br />
+
+    <table id="messagesTable" class="table table-striped dataTable responsive" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Affair)</th>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                <th>@Html.DisplayNameFor(model => model.MobilePhone)</th>
+                <th>@Html.DisplayNameFor(model => model.RegisterDate)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Affair)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    @if (string.IsNullOrWhiteSpace(item.MobilePhone))
+                    {
+                        <td>Desconocido</td>
+                    }
+                    else
+                    {
+                        <td>@Html.DisplayFor(modelItem => item.MobilePhone)</td>
+                    }
+                    <td>@Html.DisplayFor(modelItem => item.RegisterDate)</td>
+                    <td>
+                        <a href="@Url.Action(actionName: "Details", controllerName: "Messages",routeValues: new { id = item.Id })" style="text-decoration: none;">
+                            <i class="far fa-eye"></i>
+                        </a>
+                        <a href="@Url.Action(actionName: "Delete", controllerName: "Messages", routeValues: new { id = item.Id })" style="text-decoration: none;">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/app/datatables/messages-init.js")
+}

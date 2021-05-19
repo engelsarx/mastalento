@@ -1,0 +1,134 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+    @if (ViewBag.UserFullName != null)
+    {
+        <h2>@ViewBag.Title de @ViewBag.UserFullName.Split(',')[0]</h2>
+    }
+    else
+    {
+        <h2>@ViewBag.Title de @User.Identity.GetUserName().Split('@')[0]</h2>
+    }
+
+    <hr />
+
+    <section class="row">
+
+        <div class="col-12">
+
+            <div class="row">
+
+                @if (User.IsInRole("Administrador") || User.IsInRole("Editor"))
+                {
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="link-block">
+                            <i class="fas fa-list"></i>
+                            @Html.ActionLink(linkText: "Categorías", actionName: "Index", controllerName: "Categories", routeValues: new { area = "" }, htmlAttributes: new { @class = "link-block__link" })
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="link-block">
+                            <i class="fas fa-shapes"></i>
+                            @Html.ActionLink(linkText: "Grupos", actionName: "Index", controllerName: "Divisions", routeValues: new { area = "" }, htmlAttributes: new { @class = "link-block__link" })
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="link-block">
+                            <i class="fas fa-book"></i>
+                            @Html.ActionLink(linkText: "FAQ", actionName: "Index", controllerName: "FrequentlyAskedQuestions", routeValues: new { area = "" }, htmlAttributes: new { @class = "link-block__link" })
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="link-block">
+                            <i class="far fa-newspaper"></i>
+                            @Html.ActionLink(linkText: "Publicaciones", actionName: "Index", controllerName: "News", routeValues: new { area = "" }, htmlAttributes: new { @class = "link-block__link" })
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="link-block">
+                            <i class="fas fa-briefcase"></i>
+                            @Html.ActionLink(linkText: "Soluciones", actionName: "Index", controllerName: "Solutions", routeValues: new { area = "" }, htmlAttributes: new { @class = "link-block__link" })
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="link-block">
+                            <i class="far fa-heart"></i>
+                            @Html.ActionLink(linkText: "Valores", actionName: "Index", controllerName: "AggregateValues", routeValues: new { area = "" }, htmlAttributes: new { @class = "link-block__link" })
+                        </div>
+                    </div>
+
+
+                    if (User.IsInRole("Administrador"))
+                    {
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div class="link-block">
+                                <i class="fas fa-users"></i>
+                                @Html.ActionLink(linkText: "Usuarios", actionName: "Users", controllerName: "Manage", routeValues: new { area = "" }, htmlAttributes: new { @class = "link-block__link" })
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div class="link-block">
+                                <i class="fas fa-mail-bulk"></i>
+                                @Html.ActionLink(linkText: "Mensajes", actionName: "Index", controllerName: "Messages", routeValues: new { area = "" }, htmlAttributes: new { @class = "link-block__link" })
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div class="link-block">
+                                <i class="fas fa-book-open"></i>
+                                @Html.ActionLink(linkText: "Bitácora", actionName: "Index", controllerName: "DeletedInfo", routeValues: new { area = "" }, htmlAttributes: new { @class = "link-block__link" })
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="col-12 col-md-4 col-lg-3">
+                            @if (ViewBag.ApplicationDataId != null && ViewBag.ApplicationDataId != Guid.Empty)
+                            {
+                                <div class="link-block">
+                                    <i class="fas fa-cogs"></i>
+                                    @Html.ActionLink(linkText: "Configuración", actionName: "Edit", controllerName: "ApplicationData", routeValues: new { id = ViewBag.applicationDataId }, htmlAttributes: new { @class = "link-block__link" })
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="link-block">
+                                    <i class="fas fa-cogs"></i>
+                                    @Html.ActionLink(linkText: "Configuración", actionName: "Create", controllerName: "ApplicationData", routeValues: new { area = "" }, htmlAttributes: new { @class = "link-block__link" })
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+
+                @if (User.IsInRole("Empleado"))
+                {
+                    <div>
+                        <div class="col-md-2">Recibos de nómina:</div>
+                        <div class="col-md-10"><a href="#">Próximamente</a></div>
+                    </div>
+
+                    <div>
+                        <div class="col-md-2">Vacaciones:</div>
+                        <div class="col-md-10"><a href="#">Próximamente</a></div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>

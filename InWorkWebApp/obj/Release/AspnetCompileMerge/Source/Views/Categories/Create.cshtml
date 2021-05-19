@@ -1,0 +1,47 @@
+﻿@model InWorkWebApp.Models.CategoryModel
+
+@{
+    ViewBag.Title = "Nueva categoría";
+    Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 text-center text-md-left">
+            <h2 class="m-0">@ViewBag.Title</h2>
+        </div>
+        <div class="col-12 col-md-6 text-center text-md-right">
+            <i class="fas fa-arrow-left"></i> @Html.ActionLink(linkText: "Volver al listado", actionName: "Index")
+        </div>
+    </div>
+
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <p>Completa la información requerida a continuación:</p>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group form-group--custom">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "" }) <span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

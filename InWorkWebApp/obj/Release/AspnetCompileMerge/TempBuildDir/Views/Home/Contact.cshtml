@@ -1,0 +1,89 @@
+﻿@using InWorkWebApp.Models;
+
+@{
+    ViewBag.Title = "Contacto";
+    Layout = "~/Views/Shared/_ContactLayout.cshtml";
+    var applicationData = ViewBag.ApplicationData as ApplicationDataModel;
+}
+
+<section class="mt-5 pt-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 text-center text-md-left pt-5">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.ContactIntro))
+                {
+                    <h1 class="text-primary">
+                        <strong>@ViewBag.Title</strong>
+                        <br />@applicationData.ContactIntro
+                    </h1>
+                }
+                else
+                {
+                    <h1 class="text-primary">
+                        <strong>@ViewBag.Title</strong>
+                        <br />@System.Configuration.ConfigurationManager.AppSettings["ContactIntro"]
+                    </h1>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features container publications__detail">
+    <img data-paroller-factor="0.2" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--left d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo izquierdo" />
+    <img data-paroller-factor="0.1" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--right d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo derecho" />
+</section>
+
+<div class="contact-footer-container contact-footer-container--contact-page">
+    <div class="contact-footer-container__background">
+        <img src="~/Content/images/footer-contact-background.jpg" alt="background-footer" />
+    </div>
+    <div class="container contact">
+        <div class="row row align-items-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="contact__form">
+                    <div class="contact__form-header">
+                        <h4>¿Cómo podemos ayudarte?</h4>
+                        <span class="fa fa-envelope-o fa-4x text-primary d-none d-md-inline-block"></span>
+                    </div>
+                    <p class="text-center text-md-left">Por favor completa la información requerida a continuación:</p>
+                    @Html.Partial("_ContactForm")
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-6 text-center text-lg-right contact__links">
+                También puedes contactarnos por correo electrónico
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.ContactEmail))
+                {
+                    <a href="mailto:@(applicationData.ContactEmail)" class="btn btn-primary">
+                        <span class="contact-link">@applicationData.ContactEmail</span>
+                        <span class="button-link">Contáctanos<img src="~/Content/images/icons/mail-icon.svg" alt="mail-icon" /></span>
+                    </a>
+                }
+                else
+                {
+                    <a href="mailto:@(System.Configuration.ConfigurationManager.AppSettings["ContactEmail"])" class="btn btn-primary">
+                        <span class="contact-link">@System.Configuration.ConfigurationManager.AppSettings["ContactEmail"]</span>
+                        <span class="button-link">Contáctanos<img src="~/Content/images/icons/mail-icon.svg" alt="mail-icon" /></span>
+                    </a>
+                }
+                <span>o al</span>
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.ContactPhoneNumber))
+                {
+                    <a href="tel:@(applicationData.ContactPhoneNumber)" class="btn btn-primary">
+                        <span class="contact-link">@applicationData.ContactPhoneNumber</span>
+                        <span class="button-link">@applicationData.ContactPhoneNumber<img src="~/Content/images/icons/phone-icon.svg" alt="phone-icon" /></span>
+                    </a>
+                }
+                else
+                {
+                    <a href="tel:@(System.Configuration.ConfigurationManager.AppSettings["ContactPhoneNumber"])" class="btn btn-primary">
+                        <span class="contact-link">@System.Configuration.ConfigurationManager.AppSettings["ContactPhoneNumber"]</span>
+                        <span class="button-link">@System.Configuration.ConfigurationManager.AppSettings["ContactPhoneNumber"]<img src="~/Content/images/icons/phone-icon.svg" alt="phone-icon" /></span>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_Footer");
+</div>

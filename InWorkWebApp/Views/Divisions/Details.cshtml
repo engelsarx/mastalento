@@ -1,0 +1,119 @@
+﻿@model InWorkWebApp.Models.DivisionModel
+
+@{
+    ViewBag.Title = "Detalle del grupo";
+    if (Request.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+@if (Request.IsAuthenticated)
+{
+    // Parte privada
+    <div class="container mt-5 pt-5">
+
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 text-center text-md-left">
+                <h2 class="m-0">@ViewBag.Title</h2>
+            </div>
+            <div class="col-12 col-md-6 text-center text-md-right">
+                <i class="fas fa-arrow-left"></i> @Html.ActionLink(linkText: "Volver al listado", actionName: "Index", controllerName: "Divisions");
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="col-12 text-center text-md-right">
+            @Html.ActionLink(linkText: "Editar", actionName: "Edit", routeValues: new { id = Model.Id })
+        </div>
+
+        <div>
+            <dl class="dl-horizontal">
+
+                <dt>@Html.DisplayNameFor(model => model.Image)</dt>
+                @if (!string.IsNullOrWhiteSpace(ViewBag.image))
+                {
+                    <dd><img src="@ViewBag.image" class="img-responsive" style="width: 40%;" /></dd>
+                }
+                else
+                {
+                    <dd><img src="~/Content/images/division-dummy.jpg" class="img-responsive" style="width: 40%;" /></dd>
+                }
+
+                <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+                <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Summary)</dt>
+                <dd>@Html.DisplayFor(model => model.Summary)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.PublishDate)</dt>
+                <dd>@Html.DisplayFor(model => model.PublishDate)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.ExpirationDate)</dt>
+                <dd>@Html.DisplayFor(model => model.ExpirationDate)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Content)</dt>
+                <dd>@Html.Raw(Model.Content)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.CreationDate)</dt>
+                <dd>@Html.DisplayFor(model => model.CreationDate)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.CreatedBy)</dt>
+                <dd>@Html.DisplayFor(model => model.CreatedBy)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.LastUpdateDate)</dt>
+                <dd>@Html.DisplayFor(model => model.LastUpdateDate)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.ModifiedBy)</dt>
+                <dd>@Html.DisplayFor(model => model.ModifiedBy)</dd>
+            </dl>
+        </div>
+    </div>
+}
+else
+{
+    // Parte pública
+    <section class="features container publications__detail mt-5 pt-5">
+        <img data-paroller-factor="0.2" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--left d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo izquierdo" />
+        <div>
+            <i class="fas fa-arrow-left mr-2"></i>
+            @Html.ActionLink(linkText: "Regresar", actionName: "Divisions", controllerName: "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-link" })
+        </div>
+        <img data-paroller-factor="0.1" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--right d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo derecho" />
+    </section>
+    <div class="general-features general-features--left">
+        <div class="container">
+            <div class="row">
+                <h1 class="col-8 col-lg-8">@Html.DisplayFor(model => model.Name)</h1>
+                <span class="title-giant">@Html.DisplayFor(model => model.Name)</span>
+                <hr>
+            </div>
+            <div class="row justify-content-center mt-0 mt-lg-5">
+                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                    @if (!string.IsNullOrWhiteSpace(ViewBag.image))
+                    {
+                        <img src="@ViewBag.image" class="img-responsive" />
+                    }
+                    else
+                    {
+                        <img src="~/Content/images/division-dummy.jpg" class="img-responsive" />
+                    }
+                </div>
+                <div class="col-12 col-md-6 list-custom-container">
+                    <p>
+                        @Html.Raw(Model.Content)
+                    </p>
+                    <div class="mt-5">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        @Html.ActionLink(linkText: "Regresar", actionName: "Divisions", controllerName: "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-link" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

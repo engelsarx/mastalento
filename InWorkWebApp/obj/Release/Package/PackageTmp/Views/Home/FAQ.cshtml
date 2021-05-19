@@ -1,0 +1,73 @@
+﻿@using InWorkWebApp.Models;
+
+@{
+    ViewBag.Title = "FAQ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var applicationData = ViewBag.ApplicationData as ApplicationDataModel;
+    var faqs = ViewBag.FrecuentlyAskedQuestions as List<FrequentlyAskedQuestionModel>;
+}
+
+<!-- Cabecera de la página -->
+<section class="hero hero--interiors">
+    <div class="hero__image">
+        <img src="~/Content/images/hero-hunting.jpg" alt="hero1" />
+    </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-4 col-lg-4 offset-lg-1 text-center text-md-left">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.FAQIntro))
+                {
+                    <h1 class="text-primary">
+                        <strong>@ViewBag.Title</strong>
+                        <br>@applicationData.FAQIntro
+                    </h1>
+                }
+                else
+                {
+                    <h1 class="text-primary">
+                        <strong>@ViewBag.Title</strong>
+                        <br>@System.Configuration.ConfigurationManager.AppSettings["FAQIntro"]
+                    </h1>
+                }
+            </div>
+            <div class="col-12 col-md-8 col-lg-4 offset-lg-2 register-message">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.FAQDescription))
+                {
+                    <h5 class="text-center text-md-left">@applicationData.FAQDescription</h5>
+                }
+                else
+                {
+                    <h5 class="text-center text-md-left">@System.Configuration.ConfigurationManager.AppSettings["FAQDescription"]</h5>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contenido principal -->
+<section class="features container publications scroll-animations">
+    <img data-paroller-factor="0.2" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--left d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo izquierdo" />
+
+    <div class="row justify-content-center">
+        @if (faqs != null)
+        {
+
+            foreach (var item in faqs)
+            {
+                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                    <div class="solid-block solid-block--white">
+                        <hr class="bg-primary" />
+                        <h3 class="mb-5">@item.Question</h3>
+                        <p>
+                            @Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Answer))
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            @Html.Partial("_NoContent", new NoContentModel())
+        }
+    </div>
+</section>

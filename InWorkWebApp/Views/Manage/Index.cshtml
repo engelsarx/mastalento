@@ -1,0 +1,153 @@
+﻿@using Microsoft.AspNet.Identity;
+@using InWorkWebApp.Models;
+@model InWorkWebApp.Models.IndexViewModel
+
+@{
+    ViewBag.Title = "Mi cuenta";
+    Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+    var user = ViewBag.User as ApplicationUser;
+}
+
+<div class="container mt-5 pt-5">
+
+    @if (ViewBag.UserFullName != null)
+    {
+        <h2>Cuenta de @ViewBag.UserFullName.Split(',')[0]</h2>
+    }
+    else
+    {
+        <h2>Cuenta de @User.Identity.GetUserName().Split('@')[0]</h2>
+    }
+
+    <hr />
+
+    @*<div class="alert alert-info alert-dismissible fade show" role="contentinfo">
+            <strong>Aviso:</strong> Próximamente podrás actualizar tu información personal desde esta sección, ¡espéralo!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>*@
+
+    <br />
+
+    <div class="row">
+
+        <div class="col-12 col-md-8 col-lg-4 text-md-left">
+            @if (user != null)
+            {
+                <h4 class="m-0">Tu información</h4>
+                <br />
+                <dl class="dl-horizontal">
+                    <dt>Nombre</dt>
+                    <dd>@user.FirstName</dd>
+
+                    <dt>Apellido paterno</dt>
+                    <dd>@user.LastName</dd>
+
+                    <dt>Apellido materno</dt>
+                    <dd>@user.SecondLastName</dd>
+
+                    @if (!string.IsNullOrWhiteSpace(user.PhoneNumber))
+                    {
+                        <dt>Teléfono celular</dt>
+                        <dd>@user.PhoneNumber</dd>
+                    }
+                </dl>
+            }
+        </div>
+
+        <div class="col-12 col-md-4 col-lg-3 text-md-center">
+            <i class="fas fa-user-tie fa-4x text-secondary"></i>
+            <div class="mt-5"><a href="mailto:@User.Identity.GetUserName()">@User.Identity.GetUserName()</a></div>
+
+            <span>Rol:</span>
+            <span class="text-uppercase font-weight-bold">
+                @if (User.IsInRole("Administrador"))
+                {
+                    <span>Administrador</span>
+                }
+                @if (User.IsInRole("Editor"))
+                {
+                    <span>Editor de contenido</span>
+                }
+                @if (User.IsInRole("Empleado"))
+                {
+                    <span>Empleado</span>
+                }
+            </span>
+
+            <p class="text-success">@ViewBag.StatusMessage</p>
+            <div class="mt-5">
+                @if (Model.HasPassword)
+                {
+                    @Html.ActionLink("Cambiar contraseña", "ChangePassword", new { area = "" }, new { @class = "btn btn-primary" })
+                }
+                else
+                {
+                    @Html.ActionLink("Nueva contraseña", "SetPassword", new { area = "" }, new { @class = "btn btn-primary" })
+                }
+            </div>
+        </div>
+
+        @*<div class="col-md-2">External Logins:</div>
+            <div class="col-md-10">
+                @Model.Logins.Count [
+                @Html.ActionLink("Manage", "ManageLogins") ]
+            </div>*@
+        @*
+            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+             Uncomment the following block after you have set up two-factor authentication
+        *@
+        @*
+            <div class="col-md-2">Phone Number:</div>
+            <div class="col-md-10">
+                @(Model.PhoneNumber ?? "None")
+                @if (Model.PhoneNumber != null)
+                {
+                    <br />
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                    }
+                }
+                else
+                {
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                }
+            </div>
+        *@
+        @*<div class="col-md-2">Two-Factor Authentication:</div>
+            <div class="col-md-10">
+                <p>
+                    There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                    for details on setting up this ASP.NET application to support two-factor authentication.
+                </p>*@
+        @*@if (Model.TwoFactor)
+            {
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>Enabled
+                    <input type="submit" value="Disable" class="btn btn-link" />
+                    </text>
+                }
+            }
+            else
+            {
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>Disabled
+                    <input type="submit" value="Enable" class="btn btn-link" />
+                    </text>
+                }
+            }*@
+        @*</div>*@
+    </div>
+</div>

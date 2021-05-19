@@ -1,0 +1,27 @@
+﻿@model InWorkWebApp.Models.NoContentModel
+
+@if (Request.IsAuthenticated && User.IsInRole("Administrador") || User.IsInRole("Editor"))
+{
+    <section style="margin: 50px;">
+        <div class="jumbotron">
+            <h2 class="display-4">@Model.PrivateHeader</h2>
+            <hr class="my-4">
+            <p class="lead">
+                @Model.PrivateDetail
+            </p>
+            <a class="btn btn-primary btn-lg" href="@Url.Action(actionName: Model.ActionName, controllerName: Model.ControllerName)" role="button">
+                Agregar contenido
+            </a>
+        </div>
+    </section>
+}
+else
+{
+    <section style="margin: 50px;">
+        <div class="jumbotron">
+            <h2 class="display-4">@Model.PublicHeader</h2>
+            <hr class="my-4">
+            <p class="lead">@Model.PublicDetail</p>
+        </div>
+    </section>
+}

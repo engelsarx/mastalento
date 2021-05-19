@@ -1,0 +1,114 @@
+﻿@model InWorkWebApp.Models.NewsModel
+
+@{
+    ViewBag.Title = "Nueva publicación";
+    Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 text-center text-md-left">
+            <h2 class="m-0">@ViewBag.Title</h2>
+        </div>
+        <div class="col-12 col-md-6 text-center text-md-right">
+            <i class="fas fa-arrow-left"></i> @Html.ActionLink(linkText: "Volver al listado", actionName: "Index")
+        </div>
+    </div>
+
+    <hr />
+
+    @using (Html.BeginForm(actionName: "Create", controllerName: "News", method: FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-12">
+                <p>Completa la información requerida a continuación:</p>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "d-block" })
+                    <input id="file" name="file" type="file" accept="image/jpeg" />
+                </div>
+
+                <div class="form-group form-group--custom">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "" }) <span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+
+                <div class="form-group form-group--custom">
+                    @Html.LabelFor(model => model.Subtitle, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(model => model.Subtitle, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.Subtitle, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "" }) <span class="text-danger">*</span>
+                    <div class="multi-line-container">@Html.EditorFor(model => model.Summary)</div>
+                </div>
+                @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "" }) <span class="text-danger">*</span>
+                    @Html.TextAreaFor(model => model.Description, new { id = "richtextarea" })
+                </div>
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group form-group--custom">
+                            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "" }) <span class="text-danger">*</span>
+                            @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group form-group--custom">
+                            @Html.LabelFor(model => model.NewsType, htmlAttributes: new { @class = "" }) <span class="text-danger">*</span>
+                            @Html.EnumDropDownListFor(model => model.NewsType, null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.NewsType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group form-group--custom">
+                            @Html.LabelFor(model => model.Link, htmlAttributes: new { @class = "" })
+                            @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group form-group--custom">
+                            @Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "" })
+                            @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { id = "publishDate", @class = "form-control dtp-control", type = "text", placeholder = "DD/MM/AAAA" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PublishDate, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group form-group--custom">
+                            @Html.LabelFor(model => model.ExpirationDate, htmlAttributes: new { @class = "" })
+                            @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { id = "expirationDate", @class = "form-control dtp-control", type = "text", placeholder = "DD/MM/AAAA" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ExpirationDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

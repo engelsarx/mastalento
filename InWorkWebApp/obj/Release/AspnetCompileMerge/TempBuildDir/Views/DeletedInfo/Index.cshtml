@@ -1,0 +1,74 @@
+﻿@model IEnumerable<InWorkWebApp.Models.DeletedInfoModel>
+
+@{
+    ViewBag.Title = "Bitácora";
+    Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 text-center text-md-left">
+            <div class="d-flex align-items-center">
+                <h2 class="m-0 mr-3">
+                    @ViewBag.Title
+                </h2>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle dropdown-menu-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ver
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.DeletedDate)" type="checkbox" class="toggle-vis" data-column="2" />
+                            <label for="@Html.DisplayNameFor(model => model.DeletedDate)">@Html.DisplayNameFor(model => model.DeletedDate)</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.DeletedBy)" type="checkbox" class="toggle-vis" data-column="3" />
+                            <label for="@Html.DisplayNameFor(model => model.DeletedBy)">@Html.DisplayNameFor(model => model.DeletedBy)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 text-center text-md-right">
+            <i class="fas fa-arrow-left"></i>
+            @Html.ActionLink(linkText: "Volver al dashboard", actionName: "Dashboard", controllerName: "Manage")
+        </div>
+    </div>
+
+    <hr />
+
+    <br />
+
+    <table id="loggerTable" class="table table-striped dataTable responsive" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.ContentType)</th>
+                <th>@Html.DisplayNameFor(model => model.DeletedDate)</th>
+                <th>@Html.DisplayNameFor(model => model.DeletedBy)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <th>@Html.DisplayFor(modelItem => item.ContentType)</th>
+                    <td>@Html.DisplayFor(modelItem => item.DeletedDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DeletedBy)</td>
+                    <td>
+                        <a href="@Url.Action(actionName: "Details", controllerName: "DeletedInfo", routeValues: new { id = item.Id })" style="text-decoration: none;">
+                            <i class="far fa-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/app/datatables/deleted-info-init.js")
+}

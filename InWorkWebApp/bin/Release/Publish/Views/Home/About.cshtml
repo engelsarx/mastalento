@@ -1,0 +1,228 @@
+﻿@using InWorkWebApp.Models;
+
+@{
+    ViewBag.Title = "Nosotros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var applicationData = ViewBag.ApplicationData as ApplicationDataModel;
+}
+
+<!-- Cabecera de la página -->
+<section class="hero hero--interiors">
+    <div class="hero__image">
+        <img src="~/Content/images/hero-nosotros.jpg" alt="hero1" />
+    </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-4 col-lg-4 offset-lg-1 text-center text-md-left">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.AboutIntro))
+                {
+                    <h1 class="text-primary">
+                        <strong>@ViewBag.Title</strong>
+                        <br>@applicationData.AboutIntro
+                    </h1>
+                }
+                else
+                {
+                    <h1 class="text-primary">
+                        <strong>@ViewBag.Title</strong>
+                        <br>@System.Configuration.ConfigurationManager.AppSettings["AboutIntro"]
+                    </h1>
+                }
+            </div>
+            <div class="col-12 col-md-8 col-lg-4 offset-lg-2 register-message">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.AboutDescription))
+                {
+                    <h5 class="text-center text-md-left">@applicationData.AboutDescription</h5>
+                }
+                else
+                {
+                    <h5 class="text-center text-md-left">@System.Configuration.ConfigurationManager.AppSettings["AboutDescription"]</h5>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección con contenido destacado -->
+<section class="features container scroll-animations">
+    <img data-paroller-factor="0.2" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--left d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo izquierdo" />
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-3 offset-lg-3 mb-3">
+            <div class="solid-block text-center align-items-center d-flex flex-column justify-content-center">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.SquareIconOne))
+                {
+                    <span class="@applicationData.SquareIconOne text-light mb-5"></span>
+                }
+                else
+                {
+                    <span class="lnr lnr-magic-wand text-light mb-5"></span>
+                }
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.SquareTextOne))
+                {
+                    <h5 class="text-light">@applicationData.SquareTextOne</h5>
+                }
+                else
+                {
+                    <h5 class="text-light">@System.Configuration.ConfigurationManager.AppSettings["SquareTextOne"]</h5>
+                }
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 mb-3">
+            <div class="solid-block text-center align-items-center d-flex flex-column justify-content-center">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.SquareIconTwo))
+                {
+                    <span class="@applicationData.SquareIconTwo text-light mb-5"></span>
+                }
+                else
+                {
+                    <span class="lnr lnr-strikethrough text-light mb-5"></span>
+                }
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.SquareTextTwo))
+                {
+                    <h5 class="text-light">@applicationData.SquareTextTwo</h5>
+                }
+                else
+                {
+                    <h5 class="text-light">@System.Configuration.ConfigurationManager.AppSettings["SquareTextTwo"]</h5>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-12 col-md-5">
+            @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.AboutPrimaryBanner))
+            {
+                <h3 class="text-center">@applicationData.AboutPrimaryBanner</h3>
+            }
+            else
+            {
+                <h3 class="text-center">@System.Configuration.ConfigurationManager.AppSettings["AboutPrimaryBanner"]</h3>
+            }
+        </div>
+    </div>
+    <img data-paroller-factor="0.1" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--right d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo derecho" />
+</section>
+
+<!-- Diferenciadores ¿Porqué elegirnos? -->
+<div class="general-features general-features--left">
+    <div class="container">
+        <div class="row">
+            <h2 class="col-8 col-lg-11">¿Por qué elegirnos?</h2>
+            <span class="title-giant">¿Por qué elegirnos?</span>
+            <hr>
+        </div>
+        <div class="row justify-content-center align-items-center mt-lg-5 pt-lg-5">
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="row">
+                    <div class="col-12 col-md-6 text-center mt-3 mt-md-0">
+                        @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.ItemIconOne) && !string.IsNullOrWhiteSpace(applicationData.ItemNameOne) && !string.IsNullOrWhiteSpace(applicationData.ItemDescriptionOne))
+                        {
+                            <i class="@applicationData.ItemIconOne fa-4x mb-3"></i>
+                            <h5 class="mb-3">@applicationData.ItemNameOne</h5>
+                            <p>@applicationData.ItemDescriptionOne​</p>
+                        }
+                        else
+                        {
+                            <i class="@System.Configuration.ConfigurationManager.AppSettings["ItemIconOne"] fa-4x mb-3"></i>
+                            <h5 class="mb-3">@System.Configuration.ConfigurationManager.AppSettings["ItemNameOne"]</h5>
+                            <p>@System.Configuration.ConfigurationManager.AppSettings["ItemDescriptionOne"]​</p>
+                        }
+                    </div>
+                    <div class="col-12 col-md-6 text-center mt-3 mt-md-0">
+                        @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.ItemIconTwo) && !string.IsNullOrWhiteSpace(applicationData.ItemNameTwo) && !string.IsNullOrWhiteSpace(applicationData.ItemDescriptionTwo))
+                        {
+                            <i class="@applicationData.ItemIconTwo fa-4x mb-3"></i>
+                            <h5 class="mb-3">@applicationData.ItemNameTwo</h5>
+                            <p>@applicationData.ItemDescriptionTwo​</p>
+                        }
+                        else
+                        {
+                            <i class="@System.Configuration.ConfigurationManager.AppSettings["ItemIconTwo"] fa-4x mb-3"></i>
+                            <h5 class="mb-3">@System.Configuration.ConfigurationManager.AppSettings["ItemNameTwo"]</h5>
+                            <p>@System.Configuration.ConfigurationManager.AppSettings["ItemDescriptionTwo"]​</p>
+                        }
+                    </div>
+                    <div class="col-12 col-md-6 text-center mt-3 mt-md-5">
+                        @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.ItemIconThree) && !string.IsNullOrWhiteSpace(applicationData.ItemNameThree) && !string.IsNullOrWhiteSpace(applicationData.ItemDescriptionThree))
+                        {
+                            <i class="@applicationData.ItemIconThree fa-4x mb-3"></i>
+                            <h5 class="mb-3">@applicationData.ItemNameThree</h5>
+                            <p>@applicationData.ItemDescriptionThree</p>
+                        }
+                        else
+                        {
+                            <i class="@System.Configuration.ConfigurationManager.AppSettings["ItemIconThree"] fa-4x mb-3"></i>
+                            <h5 class="mb-3">@System.Configuration.ConfigurationManager.AppSettings["ItemNameThree"]</h5>
+                            <p>@System.Configuration.ConfigurationManager.AppSettings["ItemDescriptionThree"]​</p>
+                        }
+                    </div>
+                    <div class="col-12 col-md-6 text-center mt-3 mt-md-5">
+                        @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.ItemIconFour) && !string.IsNullOrWhiteSpace(applicationData.ItemNameFour) && !string.IsNullOrWhiteSpace(applicationData.ItemDescriptionFour))
+                        {
+                            <i class="@applicationData.ItemIconFour fa-4x mb-3"></i>
+                            <h5 class="mb-3">@applicationData.ItemNameFour</h5>
+                            <p>@applicationData.ItemDescriptionFour</p>
+                        }
+                        else
+                        {
+                            <i class="@System.Configuration.ConfigurationManager.AppSettings["ItemIconFour"] fa-4x mb-3"></i>
+                            <h5 class="mb-3">@System.Configuration.ConfigurationManager.AppSettings["ItemNameFour"]</h5>
+                            <p>@System.Configuration.ConfigurationManager.AppSettings["ItemDescriptionFour"]​</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.AboutSecondaryBanner))
+                {
+                    <h3 class="text-center text-md-right">@applicationData.AboutSecondaryBanner</h3>
+                }
+                else
+                {
+                    <h3 class="text-center text-md-right">@System.Configuration.ConfigurationManager.AppSettings["AboutSecondaryBanner"]</h3>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filosofía de calidad -->
+<div class="general-features general-features--right mt-5">
+    <div class="container">
+        <div class="row">
+            <h2 class="col-8 col-lg-12 text-md-right">Filosofía de calidad</h2>
+            <span class="title-giant">Filosofía de calidad</span>
+            <hr>
+        </div>
+        <div class="row justify-content-center align-items-center mt-lg-5 pt-lg-5">
+            <div class="col-12 col-md-6 col-lg-4">
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.AboutAlternativeBanner))
+                {
+                    <h3>@applicationData.AboutAlternativeBanner</h3>
+                }
+                else
+                {
+                    <h3>@System.Configuration.ConfigurationManager.AppSettings["AboutAlternativeBanner"]</h3>
+                }
+            </div>
+            <div class="col-12 col-md-6 col-lg-5 mt-3 mt-md-0">
+                <div class="row justify-content-center">
+                    <div class="col-4 col-md-4 text-center">
+                        <img src="~/Content/images/calidad1.jpg" alt="Rectangulo izquierdo" />
+                    </div>
+                    <div class="col-4 col-md-4 text-center">
+                        <img src="~/Content/images/calidad2.jpg" alt="Rectangulo izquierdo" />
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-4 col-md-4 text-center mt-5">
+                        <img src="~/Content/images/calidad3.png" alt="Rectangulo izquierdo" />
+                    </div>
+                    <div class="col-4 col-md-4 text-center mt-5">
+                        <img src="~/Content/images/calidad4.png" alt="Rectangulo izquierdo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

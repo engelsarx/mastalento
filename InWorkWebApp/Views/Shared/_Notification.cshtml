@@ -1,0 +1,26 @@
+﻿@{
+    var formSubmissionResult = ViewBag.FormSubmissionResult as InWorkWebApp.Models.FormSubmissionViewModel;
+}
+
+@if (formSubmissionResult != null && !string.IsNullOrWhiteSpace(formSubmissionResult.Message))
+{
+    if (!string.IsNullOrWhiteSpace(formSubmissionResult.MessageType) && formSubmissionResult.MessageType.ToUpper() == "SUCCESS")
+    {
+        <div id="notification" class="alert alert-info alert-dismissible show mb-0" role="alert">
+            <strong>Listo</strong>, @formSubmissionResult.Message.ToLower()
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    }
+
+    if (!string.IsNullOrWhiteSpace(formSubmissionResult.MessageType) && formSubmissionResult.MessageType.ToUpper() == "ERROR")
+    {
+        <div id="notification" class="alert alert-danger alert-dismissible show mb-0" role="alert">
+            <strong>Lo sentimos</strong>, @formSubmissionResult.Message.ToLower()
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    }
+}

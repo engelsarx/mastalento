@@ -1,0 +1,143 @@
+﻿@{
+    var flag = false;
+}
+
+<header class="flex-row custom-navbar">
+
+    <!-- Menú hamburguesa -->
+    <label for='toggle' class="custom-navbar__button d-lg-none">
+        <img src="~/Content/images/icons/hamburguer-icon.svg" alt="hamburguer icon" width="53" height="48" />
+    </label>
+
+    <div class="container">
+        <!-- Logo -->
+        @if (Request.IsAuthenticated)
+        {
+            <a class="custom-navbar__brand" href="@Url.Action(actionName: "Dashboard", controllerName: "Manage")" aria-label="inicio">
+                @if (flag)
+                {
+                    <div>[[Logo]]</div>
+                }
+                else
+                {
+                    <img class="" src="~/Content/images/main-logo-inwork@2x.png" alt="logo" style="width:auto;height:48px;" />
+                }
+            </a>
+        }
+        else
+        {
+            <a class="custom-navbar__brand" href="@Url.Action(actionName: "Index", controllerName: "Home")" aria-label="inicio">
+                @if (flag)
+                {
+                    <div>[[Logo]]</div>
+                }
+                else
+                {
+                    <img class="" src="~/Content/images/main-logo-inwork@2x.png" alt="logo" style="width:auto;height:48px;" />
+                }
+            </a>
+        }
+
+        <!-- Checkbox invisible -->
+        <input type="checkbox" id="toggle" />
+
+        <!-- Elementos del menú -->
+        <aside class="custom-navbar__sidemenu">
+            <label for="toggle" class='custom-navbar__exit d-lg-none'>
+                <img src="~/Content/images/icons/cross-icon.svg" alt="cross icon" width="30" height="30" />
+            </label>
+            <ul>
+                <!-- Enlaces privados -->
+                @if (Request.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a href="@Url.Action(actionName: "Dashboard", controllerName: "Manage")" class="nav-link">Dashboard</a>
+                        <ul>
+                            @* Enlaces compartidos entre administradores y editores de contenido *@
+                            @if (User.IsInRole("Administrador") || User.IsInRole("Editor"))
+                            {
+                                <li class="nav-item">
+                                    @Html.ActionLink(linkText: "Categorías", actionName: "Index", controllerName: "Categories", routeValues: new { area = "" }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink(linkText: "Grupos", actionName: "Index", controllerName: "Divisions", routeValues: new { area = "" }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink(linkText: "FAQ", actionName: "Index", controllerName: "FrequentlyAskedQuestions", routeValues: new { area = "" }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink(linkText: "Publicaciones", actionName: "Index", controllerName: "News", routeValues: new { area = "" }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink(linkText: "Soluciones", actionName: "Index", controllerName: "Solutions", routeValues: new { area = "" }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink(linkText: "Valores", actionName: "Index", controllerName: "AggregateValues", routeValues: new { area = "" }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+
+                                @* Enlaces exclusivos para administradores *@
+                                if (User.IsInRole("Administrador"))
+                                {
+                                    <li class="nav-item">
+                                        @Html.ActionLink(linkText: "Usuarios", actionName: "Users", controllerName: "Manage", routeValues: new { area = "" }, htmlAttributes: new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink(linkText: "Mensajes", actionName: "Index", controllerName: "Messages", routeValues: new { area = "" }, htmlAttributes: new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink(linkText: "Bitácora", actionName: "Index", controllerName: "DeletedInfo", routeValues: new { area = "" }, htmlAttributes: new { @class = "nav-link" })
+                                    </li>
+                                }
+                            }
+
+                            @* Enlaces exclusivos para los empleados *@
+                            @if (User.IsInRole("Empleado"))
+                            {
+                                <li class="nav-item">
+                                    <a href="#" disabled>Recibos de nómina</a>
+                                </li>
+                                <li>
+                                    <a href="#" disabled>Solicitud de vacaciones</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <!-- Enlaces públicos -->
+                    <li class="nav-item">
+                        <a href="@Url.Action(actionName: "About", controllerName: "Home")" class="nav-link">
+                            Nosotros
+                            <span class="slider"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action(actionName: "Solutions", controllerName: "Home")" class="nav-link">
+                            Soluciones
+                            <span class="slider"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action(actionName: "News", controllerName: "Home")" class="nav-link">
+                            Publicaciones
+                            <span class="slider"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action(actionName: "Contact", controllerName: "Home")" class="nav-link">
+                            Contacto
+                            <span class="slider"></span>
+                        </a>
+                    </li>
+                }
+
+                <!-- Enlaces comunes -->
+                <li class="nav-item">
+                    @Html.Partial("_LoginPartial")
+                </li>
+            </ul>
+        </aside>
+    </div>
+
+</header>

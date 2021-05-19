@@ -1,0 +1,110 @@
+﻿@using InWorkWebApp.Models
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "Inicio de sesión";
+    Layout = "~/Views/Shared/_BlankLayout.cshtml";
+    var applicationData = ViewBag.ApplicationData as ApplicationDataModel;
+}
+
+<!-- Encabezado -->
+<header>
+    <div class="container">
+        <div class="row align-items-center pt-2">
+            <div class="col">
+                <a class="custom-navbar__brand" href="/" aria-label="megahub">
+                    <img class="" src="~/Content/images/logo-inwork-negro@2x.png" alt="logo" style="width:auto;height:48px;" />
+                </a>
+            </div>
+            <div class="col text-right">
+                <a href="/" class="btn btn-link">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Regresar
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--  Cabecera de la página -->
+<section class="container py-5">
+    <img data-paroller-factor="0.2" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--left" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo izquierdo" />
+    <img data-paroller-factor="0.2" data-paroller-type="foreground" data-paroller-direction="vertical" class="logo-back" src="~/Content/images/logo-inwork-border@2x.png" alt="logo grande" />
+    <div class="row align-items-center my-3 py-3">
+        <div class="col-12 col-md-4 col-lg-4 text-center text-md-left">
+            <h1 class="text-primary">
+                <strong>@ViewBag.Title</strong>
+            </h1>
+        </div>
+    </div>
+    <img data-paroller-factor="0.1" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--right d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo derecho" />
+</section>
+
+<!-- Contenido principal -->
+<div class="contact-footer-container contact-footer-container--login-page">
+    <!-- Formulario -->
+    <div class="container contact">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="contact__form">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", autocomplete="off", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="contact__form-header">
+                            <h5>Introduce tus credenciales para iniciar sesión</h5>
+                        </div>
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group form-group--custom">
+                            @Html.LabelFor(m => m.Email, new { @class = "" }) <span class="text-danger">*</span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                        <div class="form-group form-group--custom">
+                            @Html.LabelFor(m => m.Password, new { @class = "" }) <span class="text-danger">*</span>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-block btn-primary">
+                                Ingresar
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página exclusivo para el login -->
+    <footer class="footer">
+        <img class="footer__background d-none" src="~/Content/images/background-footer-login@2x.png" alt="background-footer" />
+        <div class="container mt-md-5 pt-md-5">
+            <hr class="d-none d-lg-block mt-lg-5 footer__legals-separator" />
+            <ul class="footer__links-legals mt-3 mt-lg-4 pb-md-3 pb-lg-4">
+                <li class="text-center text-md-left">
+                    <a href="~/Content/files/terminos-condiciones-digital.pdf" target="_blank" class="text-primary">Términos y condiciones</a>
+                </li>
+                <li class="text-center text-md-left">
+                    <a href="~/Content/files/aviso-privacidad-digital.pdf" target="_blank" class="text-primary">Aviso de privacidad</a>
+                </li>
+                <li class="text-center text-md-left">
+                    @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.Brand))
+                    {
+                        <span class="text-primary">© @DateTime.Now.Year @applicationData.Brand</span>
+                    }
+                    else
+                    {
+                        <span class="text-primary">© @DateTime.Now.Year @System.Configuration.ConfigurationManager.AppSettings["Brand"]</span>
+                    }
+                </li>
+            </ul>
+        </div>
+    </footer>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,67 @@
+﻿@using InWorkWebApp.Models;
+
+@{
+    var applicationData = ViewBag.ApplicationData as ApplicationDataModel;
+}
+
+<div class="contact-footer-container">
+
+    <div class="contact-footer-container__background">
+        <img src="~/Content/images/footer-contact-background.jpg" alt="background-footer" />
+    </div>
+
+    <div class="container contact">
+        <div class="row">
+            <div class="col-md-7 col-lg-6">
+                <div class="contact__form">
+                    <div class="contact__form-header">
+                        <h4>Entérate de nuestras publicaciones</h4>
+                        <span class="fa fa-envelope-o fa-4x text-primary d-none d-md-inline-block"></span>
+                    </div>
+                    <p class="text-center text-md-left">Por favor ingresa tu correo electrónico</p>
+                    @Html.Partial("_NewsletterForm")
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-6 text-center text-lg-right contact__links">
+                También puedes contactarnos por correo electrónico
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.ContactEmail))
+                {
+                    <a href="mailto:@(applicationData.ContactEmail)" class="btn btn-primary">
+                        <span class="contact-link">@applicationData.ContactEmail</span>
+                        <span class="button-link">Contáctanos<img src="~/Content/images/icons/mail-icon.svg" alt="mail-icon" /></span>
+                    </a>
+                }
+                else
+                {
+                    <a href="mailto:@(System.Configuration.ConfigurationManager.AppSettings["ContactEmail"])" class="btn btn-primary">
+                        <span class="contact-link">@System.Configuration.ConfigurationManager.AppSettings["ContactEmail"]</span>
+                        <span class="button-link">Contáctanos<img src="~/Content/images/icons/mail-icon.svg" alt="mail-icon" /></span>
+                    </a>
+                }
+                <span>o al</span>
+                @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.ContactPhoneNumber))
+                {
+                    <a href="tel:@(applicationData.ContactPhoneNumber)" class="btn btn-primary">
+                        <span class="contact-link">@applicationData.ContactPhoneNumber</span>
+                        <span class="button-link">@applicationData.ContactPhoneNumber<img src="~/Content/images/icons/phone-icon.svg" alt="phone-icon" /></span>
+                    </a>
+                }
+                else
+                {
+                    <a href="tel:@(System.Configuration.ConfigurationManager.AppSettings["ContactPhoneNumber"])" class="btn btn-primary">
+                        <span class="contact-link">@System.Configuration.ConfigurationManager.AppSettings["ContactPhoneNumber"]</span>
+                        <span class="button-link">@System.Configuration.ConfigurationManager.AppSettings["ContactPhoneNumber"]<img src="~/Content/images/icons/phone-icon.svg" alt="phone-icon" /></span>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_Footer")
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+}

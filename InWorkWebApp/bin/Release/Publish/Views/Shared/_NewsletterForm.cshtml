@@ -1,0 +1,23 @@
+﻿<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+@using (@Ajax.BeginForm("Subscribe", "Home", new { origin = ViewContext.RouteData.GetRequiredString("action") }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "notification" }, new { id = "newsletterForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Partial("_Notification")
+
+    <div class="form-group form-group--custom" style="margin-top: 10px;">
+        <label for="email">Correo electrónico</label>
+        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Escribe tu correo">
+    </div>
+
+    <div class="g-recaptcha" data-sitekey="6Lc_yAEVAAAAAH00Lbh0Ts7jYCNS9gYuyw3x0rMX"></div>
+
+    <br />
+
+    <div class="form-group">
+        <div class="text-center">
+            <button type="submit" class="btn btn-block btn-primary">Enviar</button>
+        </div>
+    </div>
+}

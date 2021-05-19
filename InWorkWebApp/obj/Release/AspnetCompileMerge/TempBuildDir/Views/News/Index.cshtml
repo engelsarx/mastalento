@@ -1,0 +1,107 @@
+﻿@using InWorkWebApp.Custom.Enums;
+@model IEnumerable<InWorkWebApp.Models.NewsModel>
+
+@{
+    ViewBag.Title = "Publicaciones";
+    Layout = "~/Views/Shared/_AuthorizedLayout.cshtml";
+}
+
+<div class="container mt-5 pt-5">
+
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 text-center text-md-left">
+            <div class="d-flex align-items-center">
+                <h2 class="m-0 mr-3">
+                    @ViewBag.Title
+                </h2>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle dropdown-menu-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ver
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.NewsType)" type="checkbox" class="toggle-vis" data-column="2" />
+                            <label for="@Html.DisplayNameFor(model => model.NewsType)">@Html.DisplayNameFor(model => model.NewsType)</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.CreationDate)" type="checkbox" class="toggle-vis" data-column="3" />
+                            <label for="@Html.DisplayNameFor(model => model.CreationDate)">@Html.DisplayNameFor(model => model.CreationDate)</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.CreatedBy)" type="checkbox" class="toggle-vis" data-column="4" />
+                            <label for="@Html.DisplayNameFor(model => model.CreatedBy)">@Html.DisplayNameFor(model => model.CreatedBy)</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.LastUpdateDate)" type="checkbox" class="toggle-vis" data-column="5" />
+                            <label for="@Html.DisplayNameFor(model => model.LastUpdateDate)">@Html.DisplayNameFor(model => model.LastUpdateDate)</label>
+                        </div>
+                        <div class="dropdown-item">
+                            <input id="@Html.DisplayNameFor(model => model.ModifiedBy)" type="checkbox" class="toggle-vis" data-column="6" />
+                            <label for="@Html.DisplayNameFor(model => model.ModifiedBy)">@Html.DisplayNameFor(model => model.ModifiedBy)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 text-center text-md-right">
+            <i class="fas fa-plus"></i>
+            @Html.ActionLink(linkText: "Nueva publicación", actionName: "Create")
+        </div>
+    </div>
+
+    <hr />
+
+    <br />
+
+    <table id="newsTable" class="table table-striped dataTable responsive" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                <th>@Html.DisplayNameFor(model => model.NewsType)</th>
+                <th>@Html.DisplayNameFor(model => model.CreationDate)</th>
+                <th>@Html.DisplayNameFor(model => model.CreatedBy)</th>
+                <th>@Html.DisplayNameFor(model => model.LastUpdateDate)</th>
+                <th>@Html.DisplayNameFor(model => model.ModifiedBy)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    @if (item.NewsType == NewsTypesEnum.NEWS)
+                    {
+                        <th>Noticia</th>
+                    }
+                    @if (item.NewsType == NewsTypesEnum.ADVICE)
+                    {
+                        <th>Consejo</th>
+                    }
+                    <td>@Html.DisplayFor(modelItem => item.CreationDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CreatedBy)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LastUpdateDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ModifiedBy)</td>
+                    <td>
+                        <a href="@Url.Action(actionName: "Edit", controllerName: "News", routeValues: new { id = item.Id})" style="text-decoration: none;">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        <a href="@Url.Action(actionName: "Details", controllerName: "News",routeValues: new { id = item.Id })" style="text-decoration: none;">
+                            <i class="far fa-eye"></i>
+                        </a>
+                        <a href="@Url.Action(actionName: "Delete", controllerName: "News", routeValues: new { id = item.Id })" style="text-decoration: none;">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/app/datatables/news-init.js")
+}

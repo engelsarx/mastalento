@@ -1,0 +1,51 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Cuenta bloqueada";
+    Layout = "~/Views/Shared/_BlankLayout.cshtml";
+}
+
+<!-- Encabezado exclusivo para la vista de bloqueo de cuentas -->
+<header class="">
+    <div class="container">
+        <div class="row align-items-center pt-2">
+            <div class="col">
+                <a class="custom-navbar__brand" href="/" aria-label="megahub">
+                    <img class="" src="~/Content/images/logo-inwork-negro@2x.png" alt="logo inwork" style="width:auto;height:48px" />
+                </a>
+            </div>
+            <div class="col text-right">
+                <a href="@Url.Action(actionName: "Index", controllerName: "Home")" class="btn btn-link">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Volver al inicio
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Cabecera de la página de error -->
+<section class="container py-5">
+    <img data-paroller-factor="0.2" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--left" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo izquierdo" />
+    <img data-paroller-factor="0.2" data-paroller-type="foreground" data-paroller-direction="vertical" class="logo-back" src="~/Content/images/logo-inwork-border@2x.png" alt="logo grande" />
+    <div class="text-center">
+        <div>
+            <i class="far fa-frown" style="font-size: 75px; margin-bottom: 40px;"></i>
+            <h1 class="text-primary">
+                <strong>¡Ooops, tu cuenta ha sido bloqueada!</strong>
+            </h1>
+        </div>
+    </div>
+    <img data-paroller-factor="0.1" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--right d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo derecho" />
+</section>
+
+<!-- Detalle del error -->
+<div class="contact-footer-container contact-footer-container--login-page">
+    <div class="container contact">
+        <div class="row text-center align-items-center">
+            <div class="text-center">
+                <h2>Lo sentimos, por seguridad tu cuenta ha sido bloqueada temporalmente, por favor inténtalo más tarde.</h2>
+            </div>
+        </div>
+    </div>
+</div>

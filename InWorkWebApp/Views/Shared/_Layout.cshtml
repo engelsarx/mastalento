@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#393E46">
+    <meta name="keywords" content="recursos humanos, capital humano, TI, administración de instalaciones, especialistas, mantenimiento integral, conservación de instalaciones, activos, atracción de talento, hunting, búsqueda, evaluación, talento, administración de nómina, maquila de nómina, obligaciones laborales, seguridad, psicometrías, capacitación, desarrollo humano, pymes, trabajadores, aprendizaje, seguridad informática, datos, protección de datos, estrategias, servicios en la nube, operaciones, desarrollo de software, desarrollo a la medida, hosting integral, fábrica de software, proyectos, innovación, innovación, consultoría, construcción, proyectos integrales, lumina learning, personalidad dinámica, eye detect, pruebas de honestidad, prevención, ética">
+    <meta name="description" content="Somos expertos en el mercado de Capital Humano, Servicios de TI, Mantenimiento de Instalaciones y Administración">
+    <meta name="robots" content="all">
+    <meta name="language" content="es">
+    <title>@ViewBag.Title - @System.Configuration.ConfigurationManager.AppSettings["Brand"]</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <script src="https://kit.fontawesome.com/2426ff205a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+    @Styles.Render("~/Content/Site.css")
+    @Styles.Render("~/Content/css/data-tables")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @Html.Partial("_Header")
+
+    <main class="" id="content" role="main">
+        @RenderBody()
+    </main>
+
+    @Html.Partial("_NewsletterFooter")
+
+    <svg class="diamond-template" width="0" height="0">
+        <defs>
+            <clipPath id="diamond-template__path">
+                <path d="M483.11,318.84L84.83,351.59c-6.55,0.54-12.29-4.33-12.83-10.88L-0.22,51.91c-0.54-6.55,4.33-12.29,10.88-12.83
+l519.46-38.6c6.55-0.54,12.29,4.33,12.83,10.88L493.99,306C494.53,312.55,489.66,318.3,483.11,318.84z" />
+            </clipPath>
+        </defs>
+    </svg>
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/data-tables")
+    @Scripts.Render("~/bundles/datetimepickers")
+    @Scripts.Render("~/Scripts/app/animation.js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
