@@ -15,36 +15,42 @@
 <!-- Cabecera de la página -->
 <section class="hero">
     <div class="hero__image">
-        <img src="~/Content/images/hero.png" alt="hero1" />
+        <img src="~/Content/images/hero-2021.png" alt="hero1" />
     </div>
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-12 col-md-4 col-lg-4 offset-lg-1 text-center text-md-right">
+            <div class="col-12 col-md-4 col-lg-4 text-center text-md-left">
                 @if (applicationData != null)
                 {
                     if (!string.IsNullOrWhiteSpace(applicationData.Brand))
                     {
+                        <h6 class="text-uppercase text-light">Bienvenido a más talento</h6>
                         <h1><strong>@applicationData.Brand</strong></h1>
                     }
                     if (!string.IsNullOrWhiteSpace(applicationData.Slogan))
                     {
-                        <h5 class="text-light">@applicationData.Slogan</h5>
+                        <h5 class="text-light mt-3 mb-5">@applicationData.Slogan</h5>
+                        <a href="#" class="btn btn-secondary">Conoce más</a>
                     }
                 }
                 else
                 {
+                    <h6 class="text-uppercase">Bienvenido a más talento</h6>
                     <h1><strong>@System.Configuration.ConfigurationManager.AppSettings["Brand"]</strong></h1>
-                    <h5 class="text-light">@System.Configuration.ConfigurationManager.AppSettings["Slogan"]</h5>
+                    <h5 class="text-light mt-3 mb-5">@System.Configuration.ConfigurationManager.AppSettings["Slogan"]</h5>
+                    <a href="#" class="btn btn-secondary">Conoce más</a>
                 }
             </div>
-            <div class="col-12 col-md-8 col-lg-4 offset-lg-2 register-message">
+            <div class="col-12 col-md-8 col-lg-8 d-flex justify-content-end register-message">
                 @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.Intro))
                 {
-                    <p>@applicationData.Intro</p>
+                    @*<p>@applicationData.Intro</p>*@
+                    <img src="~/Content/images/team-hero.png" alt="team" />
                 }
                 else
                 {
-                    <p>@System.Configuration.ConfigurationManager.AppSettings["Intro"]</p>
+                    @*<p>@System.Configuration.ConfigurationManager.AppSettings["Intro"]</p>*@
+                    <img src="~/Content/images/team-hero.png" alt="team" />
                 }
             </div>
         </div>
