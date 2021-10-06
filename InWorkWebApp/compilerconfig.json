@@ -1,0 +1,7 @@
+﻿[
+  {
+    "outputFile": "Content/stylesMasTalento/css/styles.css",
+    "inputFile": "Content/stylesMasTalento/scss/styles.scss",
+    "includeInProject": true
+  }
+]

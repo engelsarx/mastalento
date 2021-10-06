@@ -1,0 +1,241 @@
+﻿//CUSTOM NAVBAR
+
+.custom-navbar {
+    min-height: 5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .05), inset 0 -1px 0 rgba(0, 0, 0, .1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    z-index: 1071;
+    width: 100%;
+
+    @include media-breakpoint-up(md) {
+        border-bottom: 1px solid white;
+        // @supports (position: sticky) {
+        //   position: sticky;
+        //   top: 0;
+        //   z-index: 1071; // over everything in bootstrap
+        // }
+    }
+
+    .navbar-nav {
+        .nav-link {
+            padding-right: .5rem;
+            padding-left: .5rem;
+            color: white;
+
+            &.active,
+            &:hover {
+                color: $white;
+                background-color: transparent;
+            }
+
+            &.active {
+                font-weight: 600;
+            }
+        }
+    }
+
+    .container {
+        @include media-breakpoint-down(lg) {
+            width: auto;
+            margin: 0;
+        }
+
+        @include media-breakpoint-up(lg) {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    &__sidemenu {
+        position: fixed;
+        width: calc(90% - 5px);
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        left: -90%;
+        top: 0;
+        /* for sidebar to stay on top */
+        z-index: 99;
+        transition: left 0.5s ease-in-out;
+
+        @include media-breakpoint-up(lg) {
+            background-color: transparent;
+            position: relative;
+            left: auto;
+            top: auto;
+            width: auto;
+            height: 80px;
+            display: inline-block;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            padding-top: 100px;
+
+            @include media-breakpoint-up(lg) {
+                display: flex;
+                padding-top: 0;
+                margin-bottom: 0;
+                height: 100%;
+            }
+
+            li {
+                border: 0;
+                position: relative;
+
+                @include media-breakpoint-up(lg) {
+                    border: 0;
+                    display: flex;
+                    align-items: center;
+                    padding: 0 1.9rem;
+                }
+
+                &:first-child {
+                    @include media-breakpoint-up(lg) {
+                        border: 0;
+                    }
+                }
+
+                &:last-child {
+                    padding-right: 0;
+                }
+
+                &:hover {
+                    > ul {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+
+                ul {
+                    padding-top: 0;
+                    padding-left: 30px;
+                    transition: all ease 400ms;
+
+                    @include media-breakpoint-up(lg) {
+                        opacity: 0;
+                        visibility: hidden;
+                        display: block;
+                        position: absolute;
+                        top: 81px;
+                        left: 0;
+                        padding-left: 0;
+                        width: 210px;
+                        background-color: #272a2d;
+                        height: auto;
+                    }
+
+                    li {
+                        color: theme-color("light");
+                        padding: 0;
+
+                        .nav-link {
+                            padding: 1rem 1.9rem;
+                            display: block;
+                            width: 100%;
+
+                            &:hover {
+                                background-color: theme-color("light");
+                                color: theme-color("primary");
+                            }
+                        }
+                    }
+                }
+
+                .nav-link {
+                    padding: 0.8rem 1.9rem;
+                    color: white;
+                    font-weight: 300;
+                    position: relative;
+
+                    @include media-breakpoint-up(lg) {
+                        padding: 0;
+                    }
+
+                    &--active {
+                        font-weight: 700;
+                    }
+
+                    @include media-breakpoint-up(lg) {
+                        .slider {
+                            left: 0;
+                            bottom: 0;
+                            margin: 0 auto;
+                            width: 100%;
+                            overflow: hidden;
+
+                            &:before {
+                                content: "";
+                                background-color: theme-color("primary");
+                                width: 0;
+                                right: 0;
+                                position: absolute;
+                                bottom: -30px;
+                                display: block;
+                                height: 2px;
+                                -webkit-transition: all .2s ease;
+                                transition: all .2s ease;
+                            }
+                        }
+
+                        &:hover {
+                            .slider {
+                                &:before {
+                                    width: 100%;
+                                    left: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &__exit {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.9);
+        padding: 15px;
+        margin-bottom: 0;
+        transform: rotate(45deg);
+        border-radius: 0 30px;
+        position: absolute;
+        right: 24px;
+        top: 20px;
+        transition: right ease-in-out 400ms;
+
+        img {
+            width: 30px;
+            transform: rotate(45deg);
+        }
+    }
+
+    &__button {
+        position: relative;
+        cursor: pointer;
+        margin-bottom: 0;
+        padding: 0 15px;
+
+        img {
+            width: 30px;
+        }
+    }
+}
+
+#toggle {
+    display: none;
+}
+
+#toggle:checked ~ .custom-navbar__sidemenu {
+    left: 0;
+
+    .custom-navbar__exit {
+        right: -24px;
+    }
+}
