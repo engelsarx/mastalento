@@ -65,21 +65,34 @@
         <section class="features container">
             <img data-paroller-factor="0.2" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--left d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo izquierdo" />
             <div class="row scroll-animations">
-                @foreach (AggregateValueModel item in aggregatedValues)
-                {
-                    <div class="features__item text-center text-lg-left col-12 col-lg-4 offset-lg-2 animated">
-                        @if (!string.IsNullOrWhiteSpace(item.IconCode) && item.IconCode.StartsWith("lnr"))
+                <div class="col-12 col-lg-5 text-center text-lg-left">
+                    <h2>
+                        ¿Por qué somos diferentes?
+                    </h2>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy Ut wisi nulla facilisis at vero eros et accumsan.
+                    </p>
+                    <a href="#">Más información</a>
+                </div>
+                <div class="features__item text-center text-lg-left col-12 col-lg-7">
+                    <div class="row">
+                        @foreach (AggregateValueModel item in aggregatedValues)
                         {
-                            <span class="@item.IconCode lnr--primary-color"></span>
+                            <div class="features__item text-center text-lg-left col-12 col-lg-6">
+                                @if (!string.IsNullOrWhiteSpace(item.IconCode) && item.IconCode.StartsWith("lnr"))
+                                {
+                                    <span class="@item.IconCode lnr--primary-color"></span>
+                                }
+                                else
+                                {
+                                    <span class="lnr lnr-start lnr--primary-color"></span>
+                                }
+                                <h4>@item.Title</h4>
+                                <p class="d-none d-lg-block">@item.Content</p>
+                            </div>
                         }
-                        else
-                        {
-                            <span class="lnr lnr-start lnr--primary-color"></span>
-                        }
-                        <h4>@item.Title</h4>
-                        <p class="d-none d-lg-block">@item.Content</p>
                     </div>
-                }
+                </div>
             </div>
             <img data-paroller-factor="0.1" data-paroller-type="foreground" data-paroller-direction="vertical" class="features__rectangle features__rectangle--right d-none d-lg-block" src="~/Content/images/rectangle-transparent.png" alt="Rectangulo derecho" />
         </section>
@@ -101,34 +114,44 @@
 {
     if (divisions != null)
     {
-        foreach (DivisionModel item in divisions)
-        {
-            <div class="general-features general-features--insert scroll-animations">
-                <div class="container">
-                    <div class="row mb-lg-5">
-                        <h2 class="col-8 col-lg-12 animated">@item.Name</h2>
-                        <span class="title-giant">@item.Name</span>
-                        <hr class="animated">
-                    </div>
-                    <div class="row align-items-center mt-lg-3 general-features__content">
-                        <div class="col-lg-6 d-none d-lg-block animated">
-                            @if (item.Image != null && item.Image.Length > 0)
-                            {
-                                <img class="diamond-mask" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.Image))" />
-                            }
-                            else
-                            {
-                                <img class="diamond-mask" src="~/Content/images/division-dummy.jpg" />
-                            }
-                        </div>
-                        <div class="col-12 col-lg-6 list-custom-container animated">
-                            <p>@item.Summary</p>
-                            @Html.ActionLink(linkText: "Saber más", actionName: "Details", controllerName: "Divisions", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-link" })
-                        </div>
-                    </div>
-                </div>
+        <div class="row mb-3 mb-lg-5">
+            <div class="col-12">
+                <h2 class="text-center">¿Cómo te apoyamos?</h2>
             </div>
-        }
+        </div>
+        <section id="carousel-divisions" class="carousel slide carousel-testimonials" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel" data-slide-to="1" class=""></li>
+                <li data-target="#carousel" data-slide-to="2" class=""></li>
+            </ol>
+            <div class="carousel-inner">
+                @foreach (DivisionModel item in divisions)
+                {
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-md-6 text-center">
+                                    <h2 class="col-12 text-center animated">@item.Name</h2>
+                                    <p class="mb-5">@item.Summary</p>
+                                    @Html.ActionLink(linkText: "Ver más", actionName: "Details", controllerName: "Divisions", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-link" })
+                                </div>
+                                <div class="col-12 col-md-6 text-center">
+                                    @if (item.Image != null && item.Image.Length > 0)
+                                    {
+                                        <img class="w-100" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.Image))" />
+                                    }
+                                    else
+                                    {
+                                        <img class="w-100" src="~/Content/images/division-dummy.jpg" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
     }
     else
     {
