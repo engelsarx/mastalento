@@ -279,6 +279,10 @@
     <Content Include="Content\images\office-work.jpg" />
     <Content Include="Content\images\rectangle-transparent.png" />
     <Content Include="Content\images\video-background.jpg" />
+    <Content Include="Content\stylesMasTalento\css\styles.css" />
+    <Content Include="Content\stylesMasTalento\css\styles.min.css">
+      <DependentUpon>styles.css</DependentUpon>
+    </Content>
     <Content Include="default-favicon.ico" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -414,6 +418,17 @@
     <Content Include="Content\bootstrap\bootstrap.scss" />
     <Content Include="Content\bootstrap\bootstrap-reboot.scss" />
     <Content Include="Content\bootstrap\bootstrap-grid.scss" />
+    <Content Include="Content\stylesMasTalento\scss\styles.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="Content\stylesMasTalento\scss\settings\_variables.scss" />
+    <Content Include="Content\stylesMasTalento\scss\generic\_generic.scss" />
+    <Content Include="Content\stylesMasTalento\scss\components\_carousel.scss" />
+    <Content Include="Content\stylesMasTalento\scss\components\_forms.scss" />
+    <Content Include="Content\stylesMasTalento\scss\layout\_footer.scss" />
+    <Content Include="Content\stylesMasTalento\scss\layout\_nav.scss" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\inwork.boostic.com.mx - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />

@@ -30,7 +30,7 @@
                     if (!string.IsNullOrWhiteSpace(applicationData.Slogan))
                     {
                         <h5 class="text-light mt-3 mb-5">@applicationData.Slogan</h5>
-                        <a href="#" class="btn btn-secondary">Conoce más</a>
+                        <a href="#" class="btn btn-outline-primary bg-light">Conoce más</a>
                     }
                 }
                 else
@@ -164,6 +164,51 @@
         controller: "Divisions"))
     }
 }
+
+        <div class="events-container bg-warning mt-5">
+            <img class="events-container__background" src="~/Content/images/chicas.jpg" alt="chicas" />
+            <div class="container h-100">
+                <div class="row h-100">
+                    <div class="col-12 col-lg-5 text-center text-lg-right order-lg-1 events-container">
+                        <div class="h-100 d-flex justify-content-lg-end align-items-center">
+                            <h3 class="text-light">Próximos eventos</h3>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-7 mt-5 pt-5">
+                        <div class="row mt-5 pt-5">
+                            <div class="col-12 col-md-4">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-calendar fa-2x text-muted mb-3"></i>
+                                        <h5 class="text-primary">14 abril</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-calendar fa-2x text-muted mb-3"></i>
+                                        <h5 class="text-primary">14 abril</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-calendar fa-2x text-muted mb-3"></i>
+                                        <h5 class="text-primary">14 abril</h5>
+                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
 
 <!-- Soluciones -->
 @if (applicationData != null && applicationData.ShowSolutionsOnMainPage == true)

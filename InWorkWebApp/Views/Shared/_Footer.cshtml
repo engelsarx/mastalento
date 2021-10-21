@@ -6,20 +6,43 @@
 }
 
 <footer class="footer">
-    <img class="footer__background d-none d-lg-block" src="~/Content/images/background-links-footer.png" alt="background-footer" />
-    <div class="container">
-        <div class="text-lg-right mt-3 mb-3 clearfix">
-            <div class="footer__link">
-                <a href="@Url.Action(actionName: "Index", controllerName: "Home")">Inicio</a>
-            </div>
-            <div class="footer__link">
-                <a href="@Url.Action(actionName: "About", controllerName: "Home")">Nosotros</a>
-            </div>
-            <div class="footer__link">
-                <a href="@Url.Action(actionName: "Divisions", controllerName: "Home")">Grupos</a>
+    <div class="bg--medium py-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8 d-flex justify-content-between">
+                    <a href="@Url.Action(actionName: "Index", controllerName: "Home")">Inicio</a>
+                    <a href="@Url.Action(actionName: "About", controllerName: "Home")">Nosotros</a>
+                    <a href="@Url.Action(actionName: "Divisions", controllerName: "Home")">Grupos</a>
+                    <a href="@Url.Action(actionName: "News", controllerName: "Home")">Publicaciones</a>
+                    <a href="@Url.Action(actionName: "Contact", controllerName: "Home")">Contacto</a>
+                    <a href="@Url.Action(actionName: "Login", controllerName: "Account")">Login</a>
+                </div>
             </div>
         </div>
-        @if (divisions != null)
+    </div>
+    <div class="bg-dark py-4">
+        <div class="container">
+            <div class="row justify-content-between">
+                <ul class="footer__links-legals">
+                    @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.Brand))
+                    {
+                        <li class="text-center text-md-left"><span>© @DateTime.Now.Year @applicationData.Brand</span></li>
+                    }
+                    else
+                    {
+                        <li class="text-center text-md-left"><span>© @DateTime.Now.Year @System.Configuration.ConfigurationManager.AppSettings["Brand"]</span></li>
+                    }
+                </ul>
+                
+                <ul class="footer__links-legals">
+                    <li class="text-center text-md-left"><a href="~/Content/files/terminos-condiciones-digital.pdf" target="_blank">Términos y condiciones</a></li>
+                    <li class="text-center text-md-left"><a href="~/Content/files/aviso-privacidad-digital.pdf" target="_blank">Aviso de privacidad</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+        @*@if (divisions != null)
         {
             <div id="accordion">
                 <div class="card">
@@ -47,8 +70,8 @@
                     </div>
                 </div>
             </div>
-        }
-        <div class="last-links-container mt-4 clearfix">
+        }*@
+        @*<div class="last-links-container mt-4 clearfix">
             <div class="footer__link">
                 <a href="@Url.Action(actionName: "Solutions", controllerName: "Home")">Soluciones</a>
             </div>
@@ -64,21 +87,6 @@
             <div class="footer__link">
                 <a href="@Url.Action(actionName: "Login", controllerName: "Account")">Login</a>
             </div>
-        </div>
-        <div class="clearfix">
-        </div>
-        <hr class="d-none d-lg-block mt-lg-5 footer__legals-separator">
-        <ul class="footer__links-legals mt-3 mt-lg-4 pb-md-3 pb-lg-4">
-            <li class="text-center text-md-left"><a href="~/Content/files/terminos-condiciones-digital.pdf" target="_blank">Términos y condiciones</a></li>
-            <li class="text-center text-md-left"><a href="~/Content/files/aviso-privacidad-digital.pdf" target="_blank">Aviso de privacidad</a></li>
-            @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.Brand))
-            {
-                <li class="text-center text-md-left"><span>© @DateTime.Now.Year @applicationData.Brand</span></li>
-            }
-            else
-            {
-                <li class="text-center text-md-left"><span>© @DateTime.Now.Year @System.Configuration.ConfigurationManager.AppSettings["Brand"]</span></li>
-            }
-        </ul>
-    </div>
+        </div>*@
+        
 </footer>
