@@ -10,34 +10,40 @@
 <!-- Cabecera de la página -->
 <section class="hero hero--interiors">
     <div class="hero__image">
-        <img src="~/Content/images/hero-servicios.jpg" alt="hero1" />
+        <img src="~/Content/images/hero-2021.png" alt="hero1" />
     </div>
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-12 col-md-4 col-lg-4 offset-lg-1 text-center text-md-left">
+            <div class="col-12 col-md-4 col-lg-4 text-center text-md-left">
                 @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.SolutionsIntro))
                 {
-                    <h1 class="text-primary">
+                    <h1 class="text-light">
                         <strong>@ViewBag.Title</strong>
-                        <br>@applicationData.SolutionsIntro
                     </h1>
+                    <p class="text-light">
+                        @applicationData.SolutionsIntro
+                    </p>
                 }
                 else
                 {
-                    <h1 class="text-primary">
+                    <h1 class="text-light">
                         <strong>@ViewBag.Title</strong>
-                        <br>@System.Configuration.ConfigurationManager.AppSettings["SolutionsIntro"]
                     </h1>
+                    <p class="text-light">
+                        @System.Configuration.ConfigurationManager.AppSettings["SolutionsIntro"]
+                    </p>
                 }
             </div>
-            <div class="col-12 col-md-8 col-lg-4 offset-lg-2 register-message">
+            <div class="col-12 col-md-8 col-lg-8 d-flex justify-content-end register-message">
                 @if (applicationData != null && !string.IsNullOrWhiteSpace(applicationData.SolutionsDescription))
                 {
-                    <h5 class="text-center text-md-left">@applicationData.SolutionsDescription</h5>
+                    @*<h5 class="text-center text-md-left">@applicationData.SolutionsDescription</h5>*@
+                    <img src="~/Content/images/team-hero.png" alt="team" />
                 }
                 else
                 {
-                    <h5 class="text-center text-md-left">@System.Configuration.ConfigurationManager.AppSettings["SolutionsDescription"]</h5>
+                    @*<h5 class="text-center text-md-left">@System.Configuration.ConfigurationManager.AppSettings["SolutionsDescription"]</h5>*@
+                    <img src="~/Content/images/team-hero.png" alt="team" />
                 }
             </div>
         </div>
